@@ -1,20 +1,7 @@
 // IFTTT Slottt Machine by Jen Hamon
 // jen@ifttt.com
 // github.com/jhamon
-var wordlist = [
-  'office',
-  'official',
-  'teamwork',
-  'monitor',
-  'schedule',
-  'prepare',
-  'track',
-  'record',
-  'remember',
-  'make a note',
-  'archive',
-  'timeshift',
-]
+
 
 var primary_wordlist = [
     'Earth',
@@ -27,15 +14,8 @@ var primary_wordlist = [
     'EO',
     'Planet',
     'Sky',
-    "Know",
-    "Eye",
-    "Now",
-    "i",
-    "X",
-    "One"
 ]
 
-primary_wordlist = new Array(primary_wordlist.length * 3).fill(primary_wordlist).flat();
 
 var secondary_wordlist = [
     "Know",
@@ -45,6 +25,23 @@ var secondary_wordlist = [
     "X",
     "One"
 ]
+
+function combine_words (primary, secondary) {
+    var all_words = []
+    for (var primary_word of primary) {
+        for (var secondary_word of secondary) {
+            all_words.push(primary_word + secondary_word)
+            all_words.push(secondary_word +primary_word)
+        }
+    }
+    return all_words
+}
+
+
+var all_words = combine_words(primary_wordlist, secondary_wordlist)
+
+//primary_wordlist = new Array(primary_wordlist.length * 3).fill(primary_wordlist).flat();
+
 
 function buildSlotItem (text) {
     return $('<div>').addClass('slottt-machine-recipe__item')
@@ -83,33 +80,24 @@ function randomSlotttIndex(max) {
 
   
   
-function animate1() {
-  var wordIndex = randomSlotttIndex(primary_wordlist.length);
-  $wordbox1.animate({top: -wordIndex*150}, 500, 'swing', function () {
-    rotateContents($wordbox1, wordIndex);
+function animate() {
+  var wordIndex = randomSlotttIndex(all_words.length);
+  $wordbox.animate({top: -wordIndex*150}, 500, 'swing', function () {
+    rotateContents($wordbox, wordIndex);
   });
 }
 
-function animate2() {
-  var wordIndex = randomSlotttIndex(primary_wordlist.length);
-  $wordbox2.animate({top: -wordIndex*150}, 500, 'swing', function () {
-    rotateContents($wordbox2, wordIndex);
-  });
-}
+
 
 
 $(function () {
-  $wordbox1 = $('#wordbox1 .slottt-machine-recipe__items_container');
-  $wordbox2 = $('#wordbox2 .slottt-machine-recipe__items_container');
-  buildSlotContents($wordbox1, primary_wordlist);
-  buildSlotContents($wordbox2, primary_wordlist);
-
+  $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
+  buildSlotContents($wordbox, all_words);
   ///buildSlotContents($wordbox, wordlist);
   //buildSlotContents($wordbox, wordlist);
   //buildSlotContents($wordbox, wordlist);
     $("#generate").click(function () {
-    animate1();
-    animate2();
+    animate();
 })
 });
 
