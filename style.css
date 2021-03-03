@@ -4,6 +4,7 @@
     position: relative;
 }
 
+
 .slottt-machine-recipe__mask {
     height: 150px;
     width: 100%;
@@ -60,6 +61,14 @@ body {
     max-width: 2000px;
 }
 
+h4 {
+    font-weight: bold;
+}
+
+h2 {
+    text-align: left;
+}
+
 
 .recipe_if, .recipe_then {
     font-weight: bold;
@@ -75,4 +84,14 @@ a {
  font-weight: bold;
  text-decoration: none;
  color: #33CCFF;
+}
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+h4 {
+    font-weight: bold;
 }
